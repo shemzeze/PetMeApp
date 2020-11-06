@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PetMe App</string>
+    <string name="main_screen">Main Screen</string>
+    <string name="film_yourself">Film yourself</string>
+    <string name="make_my_pet_talk">Make my pet talk</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
