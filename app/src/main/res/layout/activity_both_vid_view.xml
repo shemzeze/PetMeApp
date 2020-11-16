@@ -29,6 +29,18 @@
         app:layout_constraintVertical_bias="0.034" />
 
     <Button
+        android:id="@+id/btn_play_both"
+        android:layout_width="181dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="160dp"
+        android:onClick="playBothVids"
+        android:text="play both"
+        app:layout_constraintBottom_toTopOf="@+id/btn_magic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/button3"
         android:layout_width="181dp"
         android:layout_height="52dp"
@@ -36,29 +48,18 @@
         android:text="Film Yourself"
         app:layout_constraintBottom_toTopOf="@+id/btn_play_both"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.452"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/videoViewDog2"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.676" />
 
     <Button
-        android:id="@+id/btn_play_both"
-        android:layout_width="181dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="132dp"
-        android:onClick="playBothVids"
-        android:text="play both"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.396" />
-
-    <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn_magic"
         android:layout_width="352dp"
         android:layout_height="60dp"
         android:text="make my pet talk!"
         android:textSize="25sp"
+        android:onClick="uploadToServer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
