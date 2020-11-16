@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivity2() {
-        Intent intent = new Intent(this, play_dog_vid.class);
+        Intent intent = new Intent(this, DogVidView.class);
         startActivity(intent);
     }
 }
