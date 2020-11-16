@@ -36,11 +36,7 @@ public class BothVidView extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VIDEO_REQUEST && resultCode == RESULT_OK) {
             videoUriFace = data.getData();
-            VideoView mVideoViewFace = (VideoView) findViewById(R.id.videoViewFace);
-            mVideoViewFace.setVideoURI(videoUriFace);
-            mVideoViewFace.setMediaController(new MediaController(this));
-            mVideoViewFace.requestFocus();
-            mVideoViewFace.start();
+
         }
     }
 
@@ -51,5 +47,10 @@ public class BothVidView extends AppCompatActivity {
         mVideoViewDog.setMediaController(new MediaController(this));
         mVideoViewDog.requestFocus();
         mVideoViewDog.start();
+        VideoView mVideoViewFace = (VideoView) findViewById(R.id.videoViewFace);
+        mVideoViewFace.setVideoURI(videoUriFace);
+        mVideoViewFace.setMediaController(new MediaController(this));
+        mVideoViewFace.requestFocus();
+        mVideoViewFace.start();
     }
 }
