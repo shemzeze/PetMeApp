@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.VideoView;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.Socket;
 
 public class BothVidView extends AppCompatActivity {
@@ -22,6 +24,7 @@ public class BothVidView extends AppCompatActivity {
     private File file;
     private FileInputStream fileInputStream;
     private static Context context;
+    public String videoFacePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,9 @@ public class BothVidView extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VIDEO_REQUEST && resultCode == RESULT_OK) {
             videoUriFace = data.getData();
-
+            videoFacePath = getPath(videoUriFace);
+//            videoFacePath = videoUriFace.getPath();
+            System.out.println(videoFacePath.toString());
         }
     }
 
@@ -69,8 +74,20 @@ public class BothVidView extends AppCompatActivity {
             protected Void doInBackground(String... params) {
                 Socket socket = null;
                 try {
-                    socket = new Socket("192.168.0.13", 8080);
+                    socket = new Socket("192.168.0.10", 8080);
                     System.out.println("Connecting...");
+                    FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream();
+                    byte[] buffer = new byte[1024];
+                    FileInputStream in = new FileInputStream(videoFacePath);
+                    int rBytes;
+                    while((rBytes = in.read(buffer, 0, 1024)) != -1)
+                    {
+                        outputStream.write(buffer, 0, rBytes);
+                    }
+
+                    outputStream.flush();
+                    outputStream.close();
+                    socket.close();
                 } catch (Exception e) {
                     System.out.println("Error::" + e);
                 }
@@ -79,5 +96,19 @@ public class BothVidView extends AppCompatActivity {
         }
     VideoUP videoUP = new VideoUP();
     videoUP.execute();
+    }
+
+    public String getPath(Uri uri) {
+        String result;
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = uri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
     }
 }
