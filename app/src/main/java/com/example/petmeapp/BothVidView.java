@@ -9,28 +9,31 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.Socket;
 
 public class BothVidView extends AppCompatActivity {
     private static int VIDEO_REQUEST = 101;
     public Uri videoUriFace = null;
-    private File file;
-    private FileInputStream fileInputStream;
-    private static Context context;
-    public String videoFacePath;
+    private Button magicBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_both_vid_view);
 
+        magicBtn = findViewById(R.id.btn_magic);
+        magicBtn.setEnabled(false);
     }
 
     public void captureFaceVideo(View view) {
@@ -47,9 +50,7 @@ public class BothVidView extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VIDEO_REQUEST && resultCode == RESULT_OK) {
             videoUriFace = data.getData();
-            videoFacePath = getPath(videoUriFace);
-//            videoFacePath = videoUriFace.getPath();
-            System.out.println(videoFacePath.toString());
+            magicBtn.setEnabled(true);
         }
     }
 
@@ -78,7 +79,7 @@ public class BothVidView extends AppCompatActivity {
                     System.out.println("Connecting...");
                     FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream();
                     byte[] buffer = new byte[1024];
-                    FileInputStream in = new FileInputStream(videoFacePath);
+                    InputStream in = getContentResolver().openInputStream(videoUriFace);
                     int rBytes;
                     while((rBytes = in.read(buffer, 0, 1024)) != -1)
                     {
@@ -96,19 +97,5 @@ public class BothVidView extends AppCompatActivity {
         }
     VideoUP videoUP = new VideoUP();
     videoUP.execute();
-    }
-
-    public String getPath(Uri uri) {
-        String result;
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = uri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
     }
 }
