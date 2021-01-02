@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -24,12 +28,14 @@ import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
     Button button;
+    VideoView videoView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = (Button) findViewById(R.id.btn_start);
+        button = findViewById(R.id.btn_start);
+        videoView = findViewById(R.id.videoView);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,9 +49,25 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void runDownloadedVideo(String filename){
+        File file = new File(getCacheDir(), filename);
+
+        videoView.setVideoURI(Uri.fromFile(file));
+        videoView.setMediaController(new MediaController(this));
+        videoView.requestFocus();
+        videoView.start();
+    }
+
     public void waitForFile(View view) {
         class VideoDOWN extends AsyncTask<String, String, Void> {
-            private static final String fileName = "raw/Vid.mp4";
+            private static final String fileName = "vid.mp4";
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+                runDownloadedVideo(fileName);
+            }
 
             @Override
             protected Void doInBackground(String... params) {
@@ -56,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 //                    ServerSocket serverSocket = new ServerSocket(8080);
 //                    System.out.println(serverSocket.getLocalSocketAddress());
                     socket = new Socket("192.168.0.10", 8080);
-                    System.out.println("Server started. Listening to the port");
+                    Log.d("VidDown","Server started. Listening to the port");
 //                    System.out.println("Connecting...");
 
 //                    Socket clientSocket = serverSocket.accept();
@@ -64,42 +86,43 @@ public class MainActivity extends AppCompatActivity {
 //                    System.out.println("Connecting...");
 //                    byte[] buffer = new byte[1024];
 
-                    int filesize = 10000000;
-                    byte[] buffer = new byte[filesize];
+
+                    byte[] buffer = new byte[1024];
 
                     InputStream inputStream = (FileInputStream) socket.getInputStream();
 //                    FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 //                    OutputStream os = openFileOutput("Vid.mp4", MODE_PRIVATE);
-                    FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream();
-                    BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+                    File outputFile = new File(getCacheDir(), fileName);
+//                    FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream(outputFile);
+                    FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
 
-                    System.out.println("Receiving...");
+                    Log.d("VidDown","Receiving...");
 
-                    int bytesRead = inputStream.read(buffer, 0, buffer.length);
-                    int current = bytesRead;
+                    int bytesRead;
 
-                    while (bytesRead > -1) {
-                        bytesRead = inputStream.read(buffer, current, (buffer.length - current));
-                        if (bytesRead >= 0) {
-                            current += bytesRead;
-                        }
-                    } ;
+                    while ((bytesRead = inputStream.read(buffer)) > -1) {
+                        fileOutputStream.write(buffer, 0, bytesRead);
+                    }
+
+
 
 
 //                    bufferedOutputStream.write(buffer, 0, current);
-                    outputStream.write(buffer, 0, current);
-                    outputStream.flush();
-                    outputStream.close();
 //                    bufferedOutputStream.write(buffer, 0, current);
 //                    bufferedOutputStream.flush();
 //                    bufferedOutputStream.close();
-                    inputStream.close();
-                    socket.close();
 //                    serverSocket.close();
 
-                    System.out.println("Server recieved the file");
+
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+
+                    inputStream.close();
+                    socket.close();
+
+                    Log.d("VidDown","Server recieved the file");
                 } catch (Exception e) {
-                    System.out.println("Error::" + e);
+                    Log.d("VidDown","Error::" + e);
                 }
                 return null;
             }
