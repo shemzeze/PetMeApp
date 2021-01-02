@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".DogVidView">
 
     <VideoView
         android:id="@+id/videoViewDog"
         android:layout_width="249dp"
         android:layout_height="406dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +24,9 @@
         android:layout_height="52dp"
         android:onClick="captureDogVideo"
         android:text="Film Your Pet"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +39,9 @@
         android:layout_height="48dp"
         android:onClick="openActivity3"
         android:text="Continue"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
