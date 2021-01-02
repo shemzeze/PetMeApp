@@ -26,7 +26,7 @@
         android:text="Film Your Pet"
         android:background="@drawable/custom_button"
         android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,17 +34,27 @@
         app:layout_constraintVertical_bias="0.066" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_continue"
         android:layout_width="312dp"
         android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_button"
         android:onClick="openActivity3"
         android:text="Continue"
-        android:background="@drawable/custom_button"
         android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="297dp"
+        android:layout_height="153dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.856" />
+        app:srcCompat="@drawable/dog_vid_instructions" />
 </androidx.constraintlayout.widget.ConstraintLayout>

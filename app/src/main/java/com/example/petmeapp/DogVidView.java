@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -14,11 +15,15 @@ public class DogVidView extends AppCompatActivity {
 
     private static int VIDEO_REQUEST = 101;
     public Uri videoUri = null;
+    private Button continueBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_vid_view);
+
+        continueBtn = findViewById(R.id.btn_continue);
+        continueBtn.setEnabled(false);
     }
 
     public void captureDogVideo(View view) {
@@ -35,6 +40,7 @@ public class DogVidView extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VIDEO_REQUEST && resultCode == RESULT_OK) {
             videoUri = data.getData();
+            continueBtn.setEnabled(true);
             VideoView mVideoViewDog = (VideoView) findViewById(R.id.videoViewDog);
             mVideoViewDog.setVideoURI(videoUri);
             mVideoViewDog.setMediaController(new MediaController(this));

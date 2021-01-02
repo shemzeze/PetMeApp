@@ -16,7 +16,7 @@
         android:background="@drawable/custom_button"
         android:text="Make your pet talk!"
         android:textColor="#f2dec6"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         android:onClick="waitForFile"
         android:text="Help"
         android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
