@@ -33,7 +33,7 @@
         android:id="@+id/btn_play_both"
         android:layout_width="181dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/custom_button"
         android:onClick="playBothVids"
         android:text="play both"
@@ -41,23 +41,23 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintStart_toEndOf="@+id/button3" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="181dp"
         android:layout_height="52dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/custom_button"
         android:onClick="captureFaceVideo"
         android:text="Film Yourself"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_play_both"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoViewDog2"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_magic"
@@ -77,14 +77,14 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="330dp"
-        android:layout_height="165dp"
+        android:layout_width="378dp"
+        android:layout_height="206dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_magic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoViewDog2"
-        app:layout_constraintVertical_bias="0.993"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/face_vid_instructions" />
 </androidx.constraintlayout.widget.ConstraintLayout>
