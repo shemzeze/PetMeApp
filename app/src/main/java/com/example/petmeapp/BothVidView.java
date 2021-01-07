@@ -55,9 +55,9 @@ public class BothVidView extends AppCompatActivity {
     }
 
     public void playBothVids(View view) {
-        Uri videoUriDog = Uri.parse(getIntent().getExtras().getString("videoUri"));
+        Uri videoUriPet = Uri.parse(getIntent().getExtras().getString("videoUri"));
         VideoView mVideoViewDog = (VideoView) findViewById(R.id.videoViewDog2);
-        mVideoViewDog.setVideoURI(videoUriDog);
+        mVideoViewDog.setVideoURI(videoUriPet);
         mVideoViewDog.setMediaController(new MediaController(this));
         mVideoViewDog.requestFocus();
         mVideoViewDog.start();
@@ -68,7 +68,7 @@ public class BothVidView extends AppCompatActivity {
         mVideoViewFace.start();
     }
 
-    public void uploadToServer(View view) {
+    public void uploadToServer2(View view) {
         class VideoUP extends AsyncTask<String, String, Void> {
 
             @Override
@@ -97,5 +97,7 @@ public class BothVidView extends AppCompatActivity {
         }
     VideoUP videoUP = new VideoUP();
     videoUP.execute();
+    Intent intent = new Intent(this, FinalActivity.class);
+    startActivity(intent);
     }
 }
