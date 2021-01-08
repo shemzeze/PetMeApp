@@ -7,7 +7,7 @@
     tools:context=".FinalActivity">
 
     <VideoView
-        android:id="@+id/videoView2"
+        android:id="@+id/videoViewFinal"
         android:layout_width="288dp"
         android:layout_height="508dp"
         app:layout_constraintBottom_toBottomOf="parent"

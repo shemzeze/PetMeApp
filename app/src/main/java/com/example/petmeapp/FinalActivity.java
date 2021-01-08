@@ -23,7 +23,7 @@ public class FinalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
-        videoView = findViewById(R.id.videoView);
+        videoView = findViewById(R.id.videoViewFinal);
         waitForFile(videoView);
 
     }
@@ -53,7 +53,7 @@ public class FinalActivity extends AppCompatActivity {
                 Socket socket = null;
 
                 try {
-                    socket = new Socket("192.168.0.10", 8080);
+                    socket = new Socket("192.168.0.12", 8080);
                     Log.d("VidDown","Server started. Listening to the port");
 
                     byte[] buffer = new byte[1024];

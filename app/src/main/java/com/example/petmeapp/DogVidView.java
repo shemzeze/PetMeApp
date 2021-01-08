@@ -33,7 +33,7 @@ public class DogVidView extends AppCompatActivity {
 
     public void captureDogVideo(View view) {
         Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        videoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+        videoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 5);
         if(videoIntent.resolveActivity(getPackageManager()) !=null)
         {
             startActivityForResult(videoIntent, VIDEO_REQUEST);
@@ -61,7 +61,7 @@ public class DogVidView extends AppCompatActivity {
             protected Void doInBackground(String... params) {
                 Socket socket = null;
                 try {
-                    socket = new Socket("192.168.0.10", 8080);
+                    socket = new Socket("192.168.0.12", 8080);
                     System.out.println("Connecting...");
                     FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream();
                     byte[] buffer = new byte[1024];
