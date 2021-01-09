@@ -24,7 +24,6 @@ public class FinalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
         videoView = findViewById(R.id.videoViewFinal);
-        waitForFile(videoView);
 
     }
 
@@ -86,4 +85,7 @@ public class FinalActivity extends AppCompatActivity {
         videoDown.execute();
     }
 
+    public void playCombinedVideo(View view) {
+        waitForFile(videoView);
+    }
 }
