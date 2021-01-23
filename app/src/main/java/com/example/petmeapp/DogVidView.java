@@ -1,20 +1,34 @@
 package com.example.petmeapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class DogVidView extends AppCompatActivity {
 
@@ -56,7 +70,9 @@ public class DogVidView extends AppCompatActivity {
 
     public void openActivity3(View view) {
         class VideoUP extends AsyncTask<String, String, Void> {
+            PrintWriter pw;
 
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             protected Void doInBackground(String... params) {
                 Socket socket = null;
@@ -64,6 +80,10 @@ public class DogVidView extends AppCompatActivity {
                     socket = new Socket("192.168.0.12", 8080);
                     System.out.println("Connecting...");
                     FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream();
+//                    pw = new PrintWriter(outputStream);
+//                    pw.write("000");
+//                    pw.flush();
+//                    pw.close();
                     byte[] buffer = new byte[1024];
                     InputStream in = getContentResolver().openInputStream(videoUriPet);
                     int rBytes;
@@ -71,7 +91,18 @@ public class DogVidView extends AppCompatActivity {
                     {
                         outputStream.write(buffer, 0, rBytes);
                     }
-
+//                    if (socket.isClosed()) {
+//                        Toast.makeText(DogVidView.this, "You can now send the 2nd vid", Toast.LENGTH_LONG)
+//                                .show();
+//                        makeNotification("Server finished analyzing");
+//                        outputStream.flush();
+//                        outputStream.close();
+//                        socket.close();
+//                    } else {
+//                        outputStream.flush();
+//                        outputStream.close();
+//                        socket.close();
+//                    }
                     outputStream.flush();
                     outputStream.close();
                     socket.close();

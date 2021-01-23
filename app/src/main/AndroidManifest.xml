@@ -3,6 +3,7 @@
     package="com.example.petmeapp">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
@@ -19,7 +20,6 @@
         <activity android:name=".FinalActivity"></activity>
         <activity android:name=".BothVidView" />
         <activity android:name=".DogVidView" />
-        <activity android:name=".play_dog_vid" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
