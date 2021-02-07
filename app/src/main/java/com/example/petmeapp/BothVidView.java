@@ -75,7 +75,7 @@ public class BothVidView extends AppCompatActivity {
             protected Void doInBackground(String... params) {
                 Socket socket = null;
                 try {
-                    socket = new Socket("192.168.0.12", 9090);
+                    socket = new Socket("192.168.0.14", 8080);
                     System.out.println("Connecting...");
                     FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream();
                     byte[] buffer = new byte[1024];

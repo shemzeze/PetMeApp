@@ -47,9 +47,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     Button button;
-    Button btn;
-    ImageView imageView;
-    View main;
+
 //    VideoView videoView;
 
     @Override
@@ -64,17 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 openActivity2();
             }
         });
-        btn = findViewById(R.id.btn_help);
-        imageView = (ImageView) findViewById(R.id.imageView3);
-        main = findViewById(R.id.main);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bitmap b = Screenshot.takescreenshotOfRootView(imageView);
-                imageView.setImageBitmap(b);
-                main.setBackgroundColor(Color.parseColor("#999999"));
-            }
-        });
+
     }
 
     public void openActivity2() {
@@ -97,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(0, builder.build());
     }
 
-    public File doNotification(View view) {
+//    public File doNotification(View view) {
 //        makeNotification("try 1");
 //        NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 //        Notification notify=new Notification.Builder
@@ -106,56 +94,5 @@ public class MainActivity extends AppCompatActivity {
 //
 //        notify.flags |= Notification.FLAG_AUTO_CANCEL;
 //        notif.notify(0, notify);
-        verifyStoragePermission(this);
-        Date date = new Date();
-        CharSequence now = DateFormat.format("yyyy-MM-dd_hh:mm:ss", date);
-//        file2.getParentFile().mkdirs();
-        String dirPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-        File fileDir = new File(dirPath);
-        if (!fileDir.exists()) {
-            boolean mkdir = fileDir.mkdir();
-        }
-//        String path = dirPath + "/trySnapshot.jpg";
-        View root = getWindow().getDecorView();
-        String path = dirPath + "/" + "try" + "-" + now + ".jpeg";
-        root.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(root.getDrawingCache());
-        root.setDrawingCacheEnabled(false);
-        File imageFile = new File(path);
-        try {
-            FileOutputStream fos = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-            return imageFile;
-//            Uri uriSnapshot = Uri.fromFile(file2);
-//            Intent intent = new Intent(Intent.ACTION_VIEW);
-//            intent.setDataAndType(uriSnapshot, "image/*");
-//            startActivity(intent);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-
-    private static final int REQUEST_EXTERNAL_STORAGE=1;
-    private static String [] PERMISSION_STORAGE={
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
-
-    public static void verifyStoragePermission(Activity activity){
-
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(permission != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(activity, PERMISSION_STORAGE, REQUEST_EXTERNAL_STORAGE);
-        }
-
-
-    }
 
 }

@@ -70,20 +70,15 @@ public class DogVidView extends AppCompatActivity {
 
     public void openActivity3(View view) {
         class VideoUP extends AsyncTask<String, String, Void> {
-            PrintWriter pw;
 
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             protected Void doInBackground(String... params) {
                 Socket socket = null;
                 try {
-                    socket = new Socket("192.168.0.12", 8080);
+                    socket = new Socket("192.168.0.14", 8080);
                     System.out.println("Connecting...");
                     FileOutputStream outputStream = (FileOutputStream) socket.getOutputStream();
-//                    pw = new PrintWriter(outputStream);
-//                    pw.write("000");
-//                    pw.flush();
-//                    pw.close();
                     byte[] buffer = new byte[1024];
                     InputStream in = getContentResolver().openInputStream(videoUriPet);
                     int rBytes;
